@@ -34,6 +34,7 @@ class AlbumsHandler {
       id: datas[0].album_id,
       name: datas[0].album_name,
       year: datas[0].album_year,
+      coverUrl: datas[0].cover,
     };
 
     if (datas[0].id === null) {
