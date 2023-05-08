@@ -20,7 +20,6 @@ class UploadsHandler {
     const response = h.response({
       status: 'success',
       message: 'Sampul berhasil diunggah',
-      coverUrl,
     });
     response.code(201);
     return response;

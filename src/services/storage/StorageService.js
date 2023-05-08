@@ -2,9 +2,10 @@ const fs = require('fs');
 const { Pool } = require('pg');
 
 class StorageService {
-  constructor(folder) {
+  constructor(folder, cacheService) {
     this._folder = folder;
     this._pool = new Pool();
+    this._cacheService = cacheService;
 
     if (!fs.existsSync(folder)) {
       fs.mkdirSync(folder, { recursive: true });
@@ -31,6 +32,7 @@ class StorageService {
     };
 
     await this._pool.query(query);
+    await this._cacheService.delete(`album:${albumId}`);
   }
 }
 

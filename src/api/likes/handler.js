@@ -33,17 +33,19 @@ class LikesHandler {
     };
   }
 
-  async getLikesByIdHandler(request) {
+  async getLikesByIdHandler(request, h) {
     const { id } = request.params;
-
-    const result = await this._service.getAlbumLikes(id);
-    const likes = result.rowCount;
-    return {
+    const { likes, cached } = await this._service.getAlbumLikes(id);
+    const response = h.response({
       status: 'success',
       data: {
         likes,
       },
-    };
+    });
+    if (cached) {
+      response.header('X-Data-Source', 'cache');
+    }
+    return response;
   }
 }
 
